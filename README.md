@@ -35,8 +35,6 @@
 
 # Users Routes
 
-### /api/
-
 ## GET All Users
 
 #### _Method Url:_ `/api/users`
