@@ -6,42 +6,87 @@
 
 #### Production
 
-- Express: a flexible, minimalist web framework for Node.js
-- Bcrypt: a password-hashing function used to secure user data
-- Postgres: a powerful, open source object-relational database system
-- Knex: a JS query builder compatible w/ various relational databases
-- Helmet: a Node.js module that helps in securing HTTP headers
-- Cors: a package for providing middleware to enable CORS
-- Dotenv: a module for loading environmental variables
+- Express: flexible, minimalist web framework for Node.js
+- Meta-Auth: Express middleware for handling authentication w/ MetaMask
+- Postgres: powerful, open source object-relational database system
+- Knex: JS query builder compatible w/ various relational databases
+- Helmet: Node module that helps in securing HTTP headers
+- Cors: package for providing middleware to enable CORS
+- Dotenv: module for loading environmental variables
 
 #### Development
 
-- Nodemon: a simple monitor script for Node.js development
-- Pg: a non-blocking PostgresSQL client for Node.js
-- Sqlite3: a self-contained relational database management system
-- Supertest: a library for testing Node.js HTTP servers
-- Mocha: a testing framework w/ browser support and asynchronous testing
-- Chai: a BDD/TDD assertion library for Node.js and the browser
+- Nodemon: simple monitor script for Node.js development
+- Pg: non-blocking PostgresSQL client for Node.js
+- Sqlite3: self-contained relational database management system
+- Supertest: library for testing Node.js HTTP servers
+- Mocha: testing framework w/ browser support and asynchronous testing
+- Chai: BDD/TDD assertion library for Node.js and the browser
 
 # Table of Contents
 
-- [Users Routes](#UsersRoutes)
+- [Auth Routes](#AuthRoutes)
 
-  - GET: retrieve all Users
-  - GET: retrieve a specific User by ID
-  - POST: add a new User
-  - PUT: update a specific User by ID
-  - DELETE: remove a specific User by ID
+  - GET: retrieve address and issue challenge via meta-auth
+  - GET: verify message signature and check 'recovered' property
+  - GET: logout / disconnect wallet
 
-# Users Routes
+- [Favorites Routes](#FavoritesRoutes)
 
-## GET All Users
+  - GET: retrieve all Favorites
+  - GET: retrieve a specific Favorite by ID
+  - GET: retrieve all Favorites for a specific user address
+  - POST: add a new Favorite
+  - PUT: update a specific Favorite by ID
+  - DELETE: remove a specific Favorite by ID
 
-#### _Method Url:_ `/api/users`
+# Auth Routes
+
+## GET MetaAddress
+
+#### _Method Url:_ `/api/auth`
 
 ##### HTTP method: [GET]
 
-### **Get a list of all Users**
+### **Retrieve Ethereum address and issue challenge**
+
+```
+// TO DO: ADD SAMPLE CODE SNIPPET
+```
+
+## GET MetaMessage and MetaSignature
+
+#### _Method Url:_ `/api/auth`
+
+##### HTTP method: [GET]
+
+### **Verify message signature and check 'recovered' property**
+
+```
+// TO DO: ADD SAMPLE CODE SNIPPET
+```
+
+## GET Logout
+
+#### _Method Url:_ `/api/auth`
+
+##### HTTP method: [GET]
+
+### **Disconnect wallet from database by nullifying JWT**
+
+```
+// TO DO: ADD SAMPLE CODE SNIPPET
+```
+
+# Favorites Routes
+
+## GET All Favorites
+
+#### _Method Url:_ `/api/favorites`
+
+##### HTTP method: [GET]
+
+### **Get a list of all Favorites**
 
 ### Headers
 
@@ -54,35 +99,10 @@
 
 200 (OK)
 
-The endpoint will return a HTTP response with a status code 200 and an array of objects containing all Users in the database.
+The endpoint will return a HTTP response with a status code 200 and an array of objects containing all Favorites in the database.
 
 ```
-[
-    {
-        "id": "0x9zV6yt5KXiXN5o5nk3e3eDxuuX30PS8EUT4ZOXfu",
-        "name": "Bob",
-        "email": "bob@furniturestore.io",
-        "image": "https://fakeimg.pl/300/",
-        "darkmode": true,
-        "last_updated": "2021-06-29T01:14:44.000Z"
-    },
-    {
-        "id": "0xr863zDkQqPx1l8gfNHPTwCI97KObLoaERZotx9ez",
-        "name": "Sally",
-        "email": "sally@mayloans.com",
-        "image": "https://fakeimg.pl/250x100/",
-        "darkmode": false,
-        "last_updated": "2021-07-01T22:53:23.000Z"
-    },
-    {
-        "id": "0xsbF2Su960gK6qH5zKwkGhw8kOTrWhcXyDi5vwqos",
-        "name": "Ruth",
-        "email": "ruth@lessness.co",
-        "image": "https://fakeimg.pl/350x200/?text=Hello_World",
-        "darkmode": true,
-        "last_updated": "2021-07-04T09:26:38.000Z"
-    }
-]
+// TO DO: ADD SAMPLE CODE SNIPPET
 ```
 
 500(SERVER ERROR)
@@ -91,17 +111,17 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ```
 {
-    error: "Server failed to retrieve users"
+    error: "Server failed to retrieve Favorites"
 }
 ```
 
-## Get User By ID
+## Get Favorite By ID
 
-#### _Method Url:_ `/api/users/:id`
+#### _Method Url:_ `/api/favorites/:id`
 
 ##### HTTP method: [GET]
 
-### **Get a specific User by ID (wallet address)**
+### **Get a specific Favorite by ID**
 
 ### Headers
 
@@ -114,19 +134,10 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 200 (OK)
 
-The endpoint will return a HTTP response with a status code 200 and an array containing a single User object.
+The endpoint will return a HTTP response with a status code 200 and an array containing a single Favorite object.
 
 ```
-[
-    {
-        "id": "0x9zV6yt5KXiXN5o5nk3e3eDxuuX30PS8EUT4ZOXfu",
-        "name": "Bob",
-        "email": "bob@furniturestore.io",
-        "image": "https://fakeimg.pl/300/",
-        "darkmode": true,
-        "last_updated": "2021-06-29T01:14:44.000Z"
-    }
-]
+// TO DO: ADD SAMPLE CODE SNIPPET
 ```
 
 404(CLIENT ERROR)
@@ -135,7 +146,7 @@ The endpoint will return a HTTP response with a status code 400 and an object co
 
 ```
 {
-    "error": "A user with that ID does not exist"
+    "error": "No match found for the ID provided"
 }
 ```
 
@@ -145,17 +156,62 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ```
 {
-    error: "Server failed to retrieve User"
+    error: "Server failed to retrieve Favorite"
 }
 ```
 
-# Post a New User
+## Get Favorites By userAddress
 
-#### _Method Url:_ `/api/users`
+#### _Method Url:_ `/api/favorites/:userAddress`
+
+##### HTTP method: [GET]
+
+### **Get all Favorites for a specific user address**
+
+### Headers
+
+| Name            |  Type  | Required |       Description        |
+| :-------------- | :----: | :------: | :----------------------: |
+| `Content-Type`  | String |   Yes    | Must be application/json |
+| `authorization` | String |   Yes    |      JSON Web Token      |
+
+### Response
+
+200 (OK)
+
+The endpoint will return a HTTP response with a status code 200 and an array containing the Favorites objects.
+
+```
+// TO DO: ADD SAMPLE CODE SNIPPET
+```
+
+404(CLIENT ERROR)
+
+The endpoint will return a HTTP response with a status code 400 and an object containing the following error message.
+
+```
+{
+    "error": "No match found for the address provided"
+}
+```
+
+500(SERVER ERROR)
+
+If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and an object containing the following error message.
+
+```
+{
+    error: "Server failed to retrieve data for the address provided"
+}
+```
+
+# Post a New Favorite
+
+#### _Method Url:_ `/api/favorites`
 
 ##### HTTP method: [POST]
 
-### **POST a new user to the database**
+### **POST a new favorite to the database**
 
 ### Headers
 
@@ -166,42 +222,26 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ### Body
 
-| Name       |  Type   | Required |                  Description                   |
-| :--------- | :-----: | :------: | :--------------------------------------------: |
-| `id`       | String  |   Yes    |   User's wallet address to identify account    |
-| `name`     | String  |    No    |       User's nickname or preferred title       |
-| `email`    | String  |    No    |              User's email address              |
-| `image`    | String  |    No    |             URL for User's avatar              |
-| `darkmode` | Boolean |    No    | User's darkmode preference - defaults to False |
+| Name          |  Type  | Required |                 Description                 |
+| :------------ | :----: | :------: | :-----------------------------------------: |
+| `userAddress` | String |   Yes    |      Associated user's public address       |
+| `favAddress`  | String |   Yes    | Public address being saved and/or nicknamed |
+| `favAlias`    | String |   Yes    |  Alias for the public address being stored  |
 
 ### Request
 
 ```
-{
-    "id": "0xsbF2Su960gK6qH5zKwkGhw8kOTrWhcXyD87isoAx",
-    "name": "Jake",
-    "email": "jake@statepharm.fi",
-    "image": "https://fakeimg.pl/250x100/ff0000/"
-}
+// TO DO: ADD SAMPLE CODE SNIPPET
 ```
 
 ### Response
 
 201 (Created)
 
-The endpoint will return a HTTP response with status code 200 and an array containing the newly created User object.
+The endpoint will return a HTTP response with status code 200 and an array containing the newly created Favorite object.
 
 ```
-[
-    {
-        "id": "0xsbF2Su960gK6qH5zKwkGhw8kOTrWhcXyD87isoAx",
-        "name": "Jake",
-        "email": "jake@statepharm.fi",
-        "image": "https://fakeimg.pl/250x100/ff0000/",
-        "darkmode": false,
-        "last_updated": "2021-07-13T12:02:19.000Z"
-    }
-]
+// TO DO: ADD SAMPLE CODE SNIPPET
 ```
 
 500(SERVER ERROR)
@@ -210,17 +250,17 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ```
 {
-    error: "Server could not add user. Check for missing non-nullible field(s)."
+    error: "Server failed to add Favorite. Check for missing required field(s)"
 }
 ```
 
-# Update User by ID
+# Update Favorite by ID
 
-#### _Method Url:_ `/api/users/:id`
+#### _Method Url:_ `/api/favorites/:id`
 
 ##### HTTP method: [PUT]
 
-### **Update a specific User by ID**
+### **Update a specific Favorite by ID**
 
 #### Headers
 
@@ -233,12 +273,22 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 200 (OK)
 
-The endpoint will return a HTTP response with a status code 200 and an object containing a success message and count of the number of Users updated.
+The endpoint will return a HTTP response with a status code 200 and an object containing a success message and count of the number of Favorites updated.
 
 ```
 {
-    message: "User successfully updated",
+    message: "Favorite successfully updated",
     count: 1
+}
+```
+
+404(CLIENT ERROR)
+
+The endpoint will return a HTTP response with a status code 400 and an object containing the following error message.
+
+```
+{
+    "error": "No match found for the ID provided"
 }
 ```
 
@@ -248,17 +298,17 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ```
 {
-    error: "Server failed to update user"
+    error: "Server failed to update Favorite"
 }
 ```
 
-# Delete User by ID
+# Delete Favorite by ID
 
-#### _Method Url:_ `/api/users/:id`
+#### _Method Url:_ `/api/favorites/:id`
 
 ##### HTTP method: [DELETE]
 
-### **Delete a specific user by ID**
+### **Delete a specific Favorite by ID**
 
 #### Headers
 
@@ -275,7 +325,7 @@ The endpoint will return a HTTP response with a status code 200 and an object co
 
 ```
 {
-    message: "User deleted successfully"
+    message: "Favorite successfully deleted"
 }
 ```
 
@@ -285,7 +335,7 @@ The endpoint will return a HTTP response with a status code 400 and an object co
 
 ```
 {
-    "error": "A user with that ID does not exist"
+    "error": "No match found for the ID provided"
 }
 ```
 
@@ -295,6 +345,6 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ```
 {
-    error: "Server failed to delete user"
+    error: "Server failed to delete Favorite"
 }
 ```

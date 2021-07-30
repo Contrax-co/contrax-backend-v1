@@ -1,17 +1,30 @@
-exports.up = function (knex, Promise) {
-  return knex.schema.createTable('users', (users) => {
-    users.increments();
-    // id = wallet address
-    users.string('id', 42).notNullable().unique();
-    users.string('name', 42);
-    users.string('email', 100);
-    users.string('image', 1000);
-    // defaults to Light Mode, until User activates Dark Mode
-    users.boolean('darkmode').defaultTo(false);
-    users.timestamp('last_updated').defaultTo(knex.fn.now());
-  });
+exports.up = function (knex) {
+  return knex.schema
+    .createTable('users', (table) => {
+      table.increments('id');
+      table.string('publicAddress', 42).notNullable().unique();
+      // initialize with a random nonce, used to authenticate via meta-auth
+      table
+        .integer('nonce')
+        .notNullable()
+        .unsigned()
+        .defaultTo(() => Math.floor(Math.random() * 1000000));
+      table.string('username', 42).unique();
+      table.string('email', 320);
+      table.boolean('darkmode').defaultTo(false);
+      table.timestamp('timestamp').notNullable().defaultTo(knex.fn.now());
+    })
+    .createTable('favorites', (table) => {
+      table.increments('id');
+      table.string('userAddress', 42).notNullable();
+      table.string('favAddress', 42).notNullable();
+      table.string('favAlias', 42).notNullable();
+      table.timestamp('timestamp').notNullable().defaultTo(knex.fn.now());
+
+      table.foreign('userAddress').references('publicAddress').inTable('users');
+    });
 };
 
-exports.down = function (knex, Promise) {
-  return knex.schema.dropTableIfExists('users');
+exports.down = function (knex) {
+  return knex.schema.dropTableIfExists('users').dropTableIfExists('favorites');
 };

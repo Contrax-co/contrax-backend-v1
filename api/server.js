@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+
 const helmet = require('helmet');
 
-const usersRouter = require('../users/users-router.js');
+const authRouter = require('../auth/auth-router.js');
+const favsRouter = require('../favorites/favorites-router.js');
 
 const server = express();
 
@@ -11,6 +13,7 @@ const corsConfig = {
 };
 
 server.use(helmet());
+server.use(express.json());
 server.use(cors(corsConfig));
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -20,19 +23,19 @@ server.use(function (req, res, next) {
   );
   next();
 });
-server.use(express.json());
 
-server.use('/api/users', [logger, usersRouter]);
+server.use('/api/auth', [authRouter]);
+server.use('/api/favorites', [favsRouter]);
 
 server.get('/', (req, res) => {
   res.json({ server: 'online' });
 });
 
-// Used for troubleshooting. Can comment out if not needed.
-// Make sure to remove it from Line 25 if commenting out.
-function logger(req, res, next) {
-  console.log(req.method, req.url, Date.now());
-  next();
-}
+// // ** logger middleware for troubleshooting
+// // ** for use: uncomment below and add logger to Lines 27-28
+// function logger(req, res, next) {
+//   console.log(req.method, req.url, Date.now());
+//   next();
+// }
 
 module.exports = server;
