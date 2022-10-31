@@ -1,5 +1,7 @@
 # Contrax.finance Backend V1 (Deprecated)
 
+Replaced by [contrax-backend](https://github.com/Contrax-co/contrax-backend)
+
 # Technologies
 
 #### Production
