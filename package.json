@@ -1,0 +1,50 @@
+{
+  "name": "contrax-backend-v1",
+  "version": "1.0.0",
+  "description": "Contrax.co Backend API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha './api/server.spec.js'",
+    "server": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Contrax-co/contrax-backend-v1.git"
+  },
+  "keywords": [
+    "contrax",
+    "contrax.co",
+    "contrax backend",
+    "smart contract builder",
+    "smart contract OS",
+    "smart contracts",
+    "DeFi",
+    "Ethereum"
+  ],
+  "author": "Leios International, Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Contrax-co/contrax-backend-v1/issues"
+  },
+  "homepage": "https://github.com/Contrax-co/contrax-backend-v1#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.7",
+    "knex-cleaner": "^1.3.1",
+    "meta-auth": "^1.1.2",
+    "pg": "^8.6.0",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^9.0.2",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.3"
+  }
+}
