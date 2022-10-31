@@ -1,6 +1,4 @@
-# Contrax.co Backend API
-
-[--->Deployment URL Coming Soon<---](https://contrax.herokuapp.com/)
+# Contrax.finance Backend V1 (Deprecated)
 
 # Technologies
 
